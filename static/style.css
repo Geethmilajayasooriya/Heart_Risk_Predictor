@@ -1,0 +1,37 @@
+/* Body background only */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #88a9c9; /* Light blue/gray professional color */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Form card (keep white) */
+.glass-card {
+    background: white; /* keep the form white */
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.btn-danger {
+    background: #e63946;
+    border: none;
+}
+
+.btn-danger:hover {
+    background: #d62828;
+}
+
+.btn-primary {
+    background: #1d3557;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #457b9d;
+}
