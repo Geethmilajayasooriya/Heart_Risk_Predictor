@@ -2,17 +2,7 @@
 
 CardioMate is a lightweight Flask web application that provides an educational estimate of heart disease risk using a pre-trained machine-learning model.
 
-# Demo Video
-<video width="600" controls>
-  <source src="assets/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
-## Screenshots
-![Input Form](assets/screenshot\ 1.png)
-![Prediction Result](assets/screenshot\ 2.png)
-![Prediction Result 2](assets/screenshot\ 3.png)
-![Prediction Result 3](assets/screenshot\ 4.png)
 
 ## Highlights
 - Simple, responsive UI with landing page, input form, and results page
