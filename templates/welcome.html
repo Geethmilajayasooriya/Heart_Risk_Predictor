@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CardioMate | Prediction Result</title>
+    <title>Welcome | CardioMate</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <meta name="description" content="CardioMate — quick, educational heart disease risk estimation powered by machine learning.">
-    <meta name="theme-color" content="#e63946">
 </head>
 <body>
 
@@ -24,7 +23,7 @@
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -44,78 +43,41 @@
     </div>
 </nav>
 
-<!-- Result Section -->
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg glass-card text-center">
-                <div class="card-header bg-success text-white">
-                    <h4>Prediction Result</h4>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="mb-2">Patient Name</h5>
-                    <h4 class="fw-bold mb-3">{{ results.name }}</h4>
-
-                    <p class="text-muted">Estimated Heart Disease Risk</p>
-
-                    {% set r = results.risk %}
-
-                    <div class="result-overview mb-3">
-                        <h2 class="fw-bold d-inline-block me-2">{{ results.risk }}%</h2>
-                        {% if r <= 10 %}
-                            <span class="badge bg-success">Low risk</span>
-                        {% elif r <= 20 %}
-                            <span class="badge bg-warning text-dark">Moderate risk</span>
-                        {% else %}
-                            <span class="badge bg-danger">High risk</span>
-                        {% endif %}
-                    </div>
-
-                    <div class="alert alert-light text-start small">
-                        {% if r <= 10 %}
-                            <strong>What this means:</strong> Low estimated risk — consider routine checkups and healthy lifestyle.
-                        {% elif r <= 20 %}
-                            <strong>What this means:</strong> Moderate estimated risk — discuss habits and testing with a clinician.
-                        {% else %}
-                            <strong>What this means:</strong> High estimated risk — seek medical advice and consider further testing.
-                        {% endif %}
-                    </div>
-
-                    <p class="small text-muted">This result is an estimate and should not replace medical advice.</p>
-
-                    <a href="/" class="btn btn-primary w-100 mt-3">
-                        Predict Another Patient
-                    </a>
-                </div>
+<!-- Hero -->
+<header class="hero py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="display-5 fw-bold">CardioMate — Quick, trusted heart risk estimates</h1>
+                <p class="lead text-muted mb-4">Use clinical risk factors and a trained model to get a clear, easy-to-understand estimate. Designed for education and early awareness.</p>
+                <a href="/predict" class="btn btn-danger btn-lg me-2">Get Started</a>
+                <a href="#about" class="btn btn-outline-primary btn-lg">Learn More</a>
+            </div>
+            <div class="col-md-5 text-center">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="CardioMate logo" class="img-fluid hero-logo">
             </div>
         </div>
     </div>
-</div>
+</header>
 
-<!-- About Section -->
+<!-- About (anchor) -->
 <section id="about" class="about-section py-5">
     <div class="container">
         <div class="card about-card shadow-sm">
             <div class="row g-0 align-items-center">
                 <div class="col-md-8 p-4">
                     <h3 class="mb-3">About CardioMate</h3>
-                    <p class="mb-3 text-muted">CardioMate provides a quick, educational estimate of heart disease risk using machine learning models trained on clinical datasets. Use results as informational guidance only.</p>
+                    <p class="mb-3 text-muted">CardioMate combines machine learning with clinical risk factors to provide a quick, educational estimate of heart disease risk. It is designed for informational purposes and does not replace professional medical advice.</p>
                 </div>
                 <div class="col-md-4 p-4 border-start text-center">
                     <h5 class="mb-1">Contact</h5>
-                    <p class="mb-1">dev@cardiomate.app</p>
-                    <p class="small text-muted mt-2 mb-0">Version 1.0 • © 2026</p>
+                    <p class="mb-1">geethmilajayasooriya2001@gmail.com</p>
+                    <p class="small text-muted mt-2 mb-0">Geethmila  Jayasooriya</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Footer -->
-<footer class="footer text-center py-4 mt-4">
-    <small class="text-muted">© 2026 CardioMate | Built with Flask & Machine Learning</small>
-</footer>
 
 <!-- Contact Modal -->
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
@@ -133,6 +95,11 @@
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="footer text-center py-4 mt-4">
+    <small class="text-muted">© 2026 CardioMate</small>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,83 +1,137 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Disease Risk Estimator</title>
+    <title>CardioMate | Heart Risk Predictor</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <meta name="description" content="CardioMate — quick, educational heart disease risk estimation powered by machine learning.">
+    <meta name="theme-color" content="#e63946">
 </head>
 <body>
 
-<div class="container mt-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top shadow">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold d-flex align-items-center fs-4" href="/">
+            <img src="{{ url_for('static', filename='logo.svg') }}" alt="CardioMate logo" class="brand-logo me-2">
+            <span class="brand-text">CardioMate</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/predict">Predict</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<!-- Main Content -->
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="card shadow-lg glass-card">
-                <div class="card-header bg-danger text-white text-center">
-                    <h3>❤️ Heart Disease Risk Predictor</h3>
+                <div class="card-header text-center bg-danger text-white">
+                    <h4 class="mb-0">Heart Disease Risk Predictor</h4>
+                    <small>AI-assisted health risk estimation</small>
                 </div>
+
                 <div class="card-body">
-                    <p class="text-center text-muted">Fill in your details accurately to check your risk level.</p>
+                    <p class="text-center text-muted mb-4">
+                        Enter accurate medical details to estimate heart disease risk.
+                    </p>
+
                     <form action="/getresults" method="POST">
 
                         <div class="mb-3">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <label class="form-label" for="name">Full Name</label>
+                            <input id="name" type="text" name="name" class="form-control" placeholder="e.g. Geethmila Jayasooriya" aria-label="Full name" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="gender">Gender</label>
+                                <select id="gender" name="gender" class="form-select" aria-label="Gender" required>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="age">Age</label>
+                                <input id="age" type="number" name="age" class="form-control" placeholder="e.g. 45" aria-label="Age" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="tc">Total Cholesterol (mg/dL)</label>
+                                <input id="tc" type="number" name="tc" class="form-control" placeholder="e.g. 200" aria-label="Total cholesterol" required>
+                                <div class="input-help">Typical adult ranges: 125–200 mg/dL</div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="hdl">HDL (mg/dL)</label>
+                                <input id="hdl" type="number" name="hdl" class="form-control" placeholder="e.g. 50" aria-label="HDL cholesterol" required>
+                                <div class="input-help">Higher HDL is generally better</div>
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Gender</label>
-                            <select name="gender" class="form-select" required>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                            </select>
+                            <label class="form-label" for="sbp">Systolic Blood Pressure (mm Hg)</label>
+                            <input id="sbp" type="number" name="sbp" class="form-control" placeholder="e.g. 120" aria-label="Systolic blood pressure" required>
+                            <div class="input-help">Enter systolic pressure (upper value)</div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Age</label>
-                            <input type="number" name="age" class="form-control" required>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label" for="smoke">Smoker</label>
+                                <select id="smoke" name="smoke" class="form-select" aria-label="Smoker">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label" for="bpm">BP Medication</label>
+                                <select id="bpm" name="bpm" class="form-select" aria-label="Blood pressure medication">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label" for="diab">Diabetes</label>
+                                <select id="diab" name="diab" class="form-select" aria-label="Diabetes">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Total Cholesterol (mg/dL)</label>
-                            <input type="number" name="tc" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">HDL (mg/dL)</label>
-                            <input type="number" name="hdl" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Systolic BP (mm Hg)</label>
-                            <input type="number" name="sbp" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Smoker?</label>
-                            <select name="smoke" class="form-select" required>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Blood Pressure Medication</label>
-                            <select name="bpm" class="form-select" required>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Diabetes</label>
-                            <select name="diab" class="form-select" required>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-danger w-100">Predict Risk</button>
+                        <button type="submit" class="btn btn-danger w-100 mt-3">
+                            Predict Risk
+                        </button>
 
                     </form>
                 </div>
@@ -86,5 +140,52 @@
     </div>
 </div>
 
+<!-- About Section -->
+<section id="about" class="about-section py-5">
+    <div class="container">
+        <div class="card about-card shadow-sm">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-8 p-4">
+                    <h3 class="mb-3">About CardioMate</h3>
+                    <p class="mb-3 text-muted">CardioMate combines machine learning with clinical risk factors to provide a quick, educational estimate of heart disease risk. It is designed for informational purposes and does not replace professional medical advice.</p>
+                    <ul class="feature-list mb-0">
+                        <li>Fast, easy-to-use risk estimation</li>
+                        <li>Clear, actionable presentation of results</li>
+                        <li>Built for education and research — not a diagnosis</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 p-4 border-start text-center">
+                    <h5 class="mb-1">Contact</h5>
+                    <p class="mb-1">Geethmila Jayasooriya</p>
+                    <p class="small text-muted mt-2 mb-0">+94 771976883</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer text-center py-4 mt-4">
+    <small class="text-muted">© 2026 CardioMate | Educational & Predictive Use Only</small>
+</footer>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactModalLabel">Contact CardioMate</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-2">Questions? Feedback? Reach out:</p>
+        <p class="mb-0"><strong>Email:</strong> <a href="mailto:dev@cardiomate.app">geethmilajayasooriya2001@gmail.com</a></p>
+        <p class="mb-0"><strong>Phone:</strong> +94 771976883</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
