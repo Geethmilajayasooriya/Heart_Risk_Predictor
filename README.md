@@ -44,9 +44,4 @@ CardioMate is a lightweight Flask web application that provides an educational e
 - The app currently runs with Flask's development server (debug=True). For production, use a WSGI server (Gunicorn / uWSGI) behind a reverse proxy.
 - Create environment variables or configuration for any sensitive settings and remove `debug=True` before production.
 
-## License & Disclaimer
-This project is for educational and research purposes only. The predicted risk is an estimate and should not be used as a medical diagnosis. Consult a healthcare professional for medical advice.
 
----
-
-If you'd like, I can add a small `Procfile`/`Dockerfile` and an example GitHub Actions workflow for CI/deploy.
