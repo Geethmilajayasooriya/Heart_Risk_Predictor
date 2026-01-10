@@ -21,7 +21,7 @@ def predict():
 @app.route('/getresults',methods=['POST'])
 def getresults():
 
-	result=request.form   #This collects all input fields from the HTML form.
+	result=request.form   # collects all input fields from the HTML form.
 
 	name=result['name']
 	gender=float(result['gender'])
